@@ -8,32 +8,18 @@ import matplotlib.pyplot as plt
 import time
 # load config from a JSON file (or anything outputting a python dictionary)
 from shutil import copyfile
-ffmpeg_path = 'C:\\Users\\wyk\\PycharmProjects\\audio-detect\\ffmpeg-4.4-full_build\\bin\\ffmpeg.exe' # On Windows, you will probably need this to be \path\to\ffmpeg.exe
 import subprocess
 import sys
-sys.path.insert(0,"../arisa/src/poc/podcast")
-from podcast import Podcast
+from podcast.podcast import Podcast
 from peewee import *
 import time
-config = {
-    "database": {
-        "host": "localhost",
-        "user": "postgres",
-        "password": "password",
-        "database": "dejavu"
-    },
-    "database_type": "postgres",
-    "fingerprint_limit":60
-}
-
 class Conf_File(object):
-
     def load(self,path):
         with open(path, "r") as conf_file:
             data = json.load(conf_file)
         return data
 
-class Pub_Detector(object):
+class Pupub(object):
     def __init__(self):
         self.pub_path = Path("./pub")
         self.no_pub_path = Path("./no_pub")
@@ -42,9 +28,14 @@ class Pub_Detector(object):
         self.pub_config=Conf_File().load(self.pub_config_path)
         self.output_path = Path("./output")
         self.sample_path = Path("samples_mp3")
+        self.cache_path = Path("podcast/cache")
         self.seuil=0.1
         self.stats={}
-        self.djv = Dejavu(config)
+        self.dejavu_config_path = Path("./config/dejavu.json")
+        self.dejavu_config=Conf_File().load(self.dejavu_config_path)
+        self.pupub_config_path = Path("./config/pupub.json")
+        self.pupub_config=Conf_File().load(self.pupub_config_path)
+        self.djv = Dejavu(self.dejavu_config)
 
     def fingerprint(self):
         self.djv.fingerprint_directory(str(self.pub_path), [".mp3"], 5)
@@ -71,7 +62,7 @@ class Pub_Detector(object):
         for ad in self.pub_config["pub"]:
             if song_name == ad["name"]:
                 subprocess.call(
-                    [ffmpeg_path, '-ss', "0", '-t', str(ad["length"]), '-i', f"{file_path}", '-acodec', 'copy', '-y',
+                    [self.pupub_config["ffmpeg_path"], '-ss', "0", '-t', str(ad["length"]), '-i', f"{file_path}", '-acodec', 'copy', '-y',
                      str(output_path)])
 
     def remove_ad(self,file_path,song_name,output_path):
@@ -79,7 +70,7 @@ class Pub_Detector(object):
             if song_name == ad["name"]:
 
                 subprocess.call(
-                    [ffmpeg_path, '-ss', str(ad["length"]) , '-i', f"{file_path}", '-acodec', 'copy', '-y',
+                    [self.pupub_config["ffmpeg_path"], '-ss', str(ad["length"]) , '-i', f"{file_path}", '-acodec', 'copy', '-y',
                      str(output_path)])
 
     def categorize(self,file,results):
@@ -116,31 +107,27 @@ class Pub_Detector(object):
 
 
 if __name__ == '__main__':
-    print(os.listdir('..\\arisa\\src\\poc\\'))
-    db = SqliteDatabase('..\\arisa\\src\\poc\\arisa_ng.db')
+
+    db = SqliteDatabase('arisa_ng.db')
     db.connect()
 
     # create a Dejavu instance
-    detector=Pub_Detector()
+    detector=Pupub()
     # Fingerprint all the mp3's in the directory we give it
     debut = time.time()
     detector.fingerprint()
-    #for file in [i for i in os.listdir(detector.sample_path)
-    #             if i.endswith(".mp3")]:
-    cache_path=Path("../arisa/src/poc/cache/")
     for podcast in Podcast.select():
         print(podcast.name)
-        if podcast.name == "encore-une-histoire":
-            detector.sample_path=cache_path/podcast.name
-            for epi in podcast.episodes.select():
-                file = Path(epi.audio_path).name
-                print(file)
+        detector.sample_path=detector.cache_path/podcast.name
+        for epi in podcast.episodes.select():
+            file = Path(epi.audio_path).name
+            print(file)
+            if Path(detector.sample_path/file).exists():
                 results = detector.djv.recognize(FileRecognizer, detector.sample_path/file)
-
                 detector.categorize(file,results)
                 #pour les stats
                 detector.add_stats_entry(results)
-                detector.write_report()
+    detector.write_report()
 
 
     print(time.time()-debut)

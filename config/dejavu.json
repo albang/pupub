@@ -1,0 +1,10 @@
+{
+    "database": {
+        "host": "localhost",
+        "user": "postgres",
+        "password": "password",
+        "database": "dejavu"
+    },
+    "database_type": "postgres",
+    "fingerprint_limit":60
+}

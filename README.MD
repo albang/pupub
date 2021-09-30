@@ -26,3 +26,23 @@ On indexe la nouvelle pub puis on passe les nouveau épisodes dans la moulinette
     python / feedparser / ffmpeg / sqlite
 
 
+
+
+# How to :
+## En amont:
+  * avoir docker et démarré la base de donnée postgres
+  * installé un environement de dev avec anaconda 3.6 + forge alternative pour pewee https://anaconda.org/conda-forge/peewee
+
+## Le tuto 
+
+1. configurer le podcast a télécharger dans le fichier ./podcast/config.json
+2. Pour télécharger les épisodes ```cd podcast; python3 podcast.py```
+3. une fois les épisodes téléchargé, on ouvre un épisode pour récuperer la pub avec audacity.
+    * On séléctionne la publicité et dans le menu de audacity, fichier > Exporter l'audio sélectionné =>mp3 dans le répertoire pub
+    * le nom du fichier sera le nom de la pub
+4. décommenter certaines lignes selon ce que vous voulez faire et lancer le script detect_pub.py
+5. Have fun
+
+
+# Disclaimer:
+Le code est livré "as is".

@@ -94,7 +94,7 @@ class Podcast(Model):
             episode.presque_init(podcast_name=self.name,data=episode_data)
             #episode.data=json.dumps(episode.data)
             episode.save()
-            #episode.download()
+            episode.download()
 
 
     def get_episodes(self,sort_by=None,reverse=False):
