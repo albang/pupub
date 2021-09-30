@@ -1,0 +1,90 @@
+{
+  "pub": [
+    {
+      "name": "petit_bambou",
+      "source": "example/pub/source/5ebc0b0da8f03f74eeeaa6e5.mp3",
+      "length": "20.5",
+      "cut_to": 20.5,
+      "filepath": "example/pub/petit_bambou.mp3"
+    },
+    { "name": "mon_livre_favoris",
+      "source": "example/pub/source/1LteXhVOyLwLWf7gdBgPJMH9z0UeZV0UFVPDuGYrlmg.mp3",
+      "length": "45",
+      "cut_to": 45,
+       "filepath": "example/pub/mon_livre_favoris.mp3"
+    },
+    { "name": "trigano",
+      "source": "example/pub/source/5cd811ee78f2503d76f0af28.mp3",
+      "length": "25",
+      "cut_to": 25,
+       "filepath": "example/pub/trigano.mp3"
+    },
+    { "name": "epopia",
+      "source": "example/pub/source/5d5c7c00e6f5dad94a5beb8f.mp3",
+      "length": "16.5",
+      "cut_to": 16.5,
+       "filepath": "example/pub/epopia.mp3"
+    },
+        {
+      "name": "cultura",
+      "source": "example/pub/source/cultura.mp3",
+      "length": "6",
+         "cut_to": 6,
+       "filepath": "example/pub/cultura.mp3"
+    },
+     {
+      "name": "levi",
+      "source": "example/pub/source/0a3f93e3-1060-4375-8669-92deb3bd67da.mp3",
+      "length": "30",
+       "cut_to": 30,
+       "filepath": "example/pub/levi.mp3"
+    },
+         {
+      "name": "macdo",
+      "source": "example/pub/source/afdbe5f2-4e18-468a-8258-c3c42afec4dc.mp3",
+      "length": "30",
+       "cut_to": 30,
+       "filepath": "example/pub/macdo.mp3"
+    },
+    {
+      "name": "kodomo",
+      "source": "example/pub/source/fab86826398d585b67e751ae60aef8c637a10893.mp3",
+      "length": "30",
+       "cut_to": 30,
+       "filepath": "example/pub/kodomo.mp3"
+    },
+    {
+      "name": "fondation_mcdo",
+      "source": "example/pub/source/fab86826398d585b67e751ae60aef8c637a10893.mp3",
+      "length": "37.7",
+       "cut_to": 30,
+       "filepath": "example/pub/fondation_mcdo.mp3"
+    },
+    {
+      "name": "podcast_deja",
+      "source": "example/pub/source/fab86826398d585b67e751ae60aef8c637a10893.mp3",
+      "length": "39.5",
+       "cut_to": 30,
+       "filepath": "example/pub/podcast_deja.mp3"
+    },
+    {
+      "name": "curtil",
+      "source": "d05652f8134cb69605706c9c02c93bc6b98dc615.mp3",
+      "length": "43.5",
+       "cut_to": 30,
+       "filepath": "example/pub/curtil.mp3"
+    },
+        {
+      "name": "auteuil",
+      "length": "14",
+       "cut_to": 14,
+       "filepath": "example/pub/auteuil.mp3"
+    },
+
+        {
+      "name": "chat",
+      "length": "35",
+       "filepath": "example/pub/chat.mp3"
+    }
+  ]
+}

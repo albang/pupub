@@ -3,6 +3,8 @@ services:
   db:
     build:
       context: ./docker/postgres
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_DB=dejavu
       - POSTGRES_USER=postgres
